@@ -65,7 +65,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Doctor Phone</label>
-                                <input type="text"
+                                <input type="number"
                                     class="form-control @error('doctor_phone') 
                                     is-invalid
                                     @enderror"
@@ -91,7 +91,16 @@
                             </div>
                             <div class="form-group">
                                 <label>SIP</label>
-                                <input type="number" class="form-control" name="sip" value="{{ $doctor->sip }}">
+                                <input type="number"
+                                    class="form-control @error('sip') 
+                                    is-invalid
+                                    @enderror"
+                                    name="sip" value="{{ $doctor->sip }}">
+                                @error('sip')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
 
 

@@ -67,7 +67,7 @@ class DoctorController extends Controller
         $request->validate([
             'doctor_name' => 'required',
             'doctor_specialist' => 'required',
-            'phone_phone' => 'required',
+            'doctor_phone' => 'required',
             'doctor_email' => 'required|email',
             'sip' => 'required',
 

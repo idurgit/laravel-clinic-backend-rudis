@@ -51,7 +51,16 @@
                             </div>
                             <div class="form-group">
                                 <label>Doctor Specialist</label>
-                                <input type="number" class="form-control" name="doctor_specialist">
+                                <input type="text"
+                                    class="form-control @error('doctor_specialist') 
+                                    is-invalid
+                                    @enderror"
+                                    name="doctor_specialist">
+                                @error('doctor_specialist')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
                             <div class="form-group">
                                 <label>Doctor Phone</label>
@@ -74,8 +83,8 @@
                                 <label>SIP</label>
                                 <input type="number" class="form-control" name="sip">
                             </div>
-                            
-                            
+
+
                         </div>
                         <div class="card-footer text-right">
                             <button class="btn btn-primary">Submit</button>
