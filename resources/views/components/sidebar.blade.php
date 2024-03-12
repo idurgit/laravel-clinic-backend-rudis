@@ -18,13 +18,15 @@
 
                 <ul class="dropdown-menu">
                     <li class=''>
-                        <a class="nav-link" href="{{ route('users.index') }}">Users</a>
+                        <a class="nav-link" href="{{ route('users.index') }}"><i
+                                class="fa-solid fa-hospital-user"></i>Users</a>
                     </li>
                 </ul>
 
                 <ul class="dropdown-menu">
                     <li class=''>
-                        <a class="nav-link" href="{{ route('doctors.index') }}">Doctors</a>
+                        <a class="nav-link" href="{{ route('doctors.index') }}"><i
+                                class="fa-solid fa-stethoscope"></i>Doctors</a>
                     </li>
                 </ul>
             </li>

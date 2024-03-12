@@ -30,7 +30,7 @@
 
 
                 <div class="card">
-                    <form action="{{ route('doctors.update', $doctor->id) }}" method="POST">
+                    <form action="{{ route('doctors.update', $doctor->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="card-header">
@@ -88,6 +88,26 @@
                                         {{ $message }}
                                     </div>
                                 @enderror
+                            </div>
+                            <div class="form-group">
+                                <label>Photo</label>
+                                <input type="text"
+                                    class="form-control @error('photo') 
+                                    is-invalid
+                                    @enderror"
+                                    name="photo" value="{{ old('photo') }}">
+                                @error('photo')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                                @if ($doctor->photo)
+                                    <div>
+                                        <img src="{{ asset($doctor->photo) }}" alt="Doctor Photo"
+                                            style="max-width: 200px; max-height: 200px;">
+                                    </div>
+                                @endif
+
                             </div>
                             <div class="form-group">
                                 <label>SIP</label>

@@ -29,7 +29,7 @@
                 </div>
                 <h2 class="section-title">Doctors</h2>
                 <p class="section-lead">
-                    You can manage all Users, such as editing, deleting and more.
+                    You can manage all doctors, such as editing, deleting and more.
                 </p>
 
 
@@ -60,6 +60,7 @@
 
                                             <th>Name</th>
                                             <th>Email</th>
+                                            <th>Photo</th>
                                             <th>Phone</th>
                                             <th>Specialist</th>
                                             <th>Created At</th>
@@ -74,6 +75,14 @@
                                                 <td>
                                                     {{ $doctor->doctor_email }}
                                                 </td>
+                                                <td>
+                                                    @if ($doctor->photo)
+                                                        <img src="{{ asset($doctor->photo) }}" alt="Doctor Photo" style="max-width: 100px; max-height: 100px;">
+                                                    @else
+                                                        No Photo
+                                                    @endif
+                                                </td>
+                                                
                                                 <td>
                                                     {{ $doctor->doctor_phone }}
                                                 </td>

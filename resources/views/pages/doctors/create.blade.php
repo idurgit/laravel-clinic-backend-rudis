@@ -30,7 +30,7 @@
 
 
                 <div class="card">
-                    <form action="{{ route('doctors.store') }}" method="POST">
+                    <form action="{{ route('doctors.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="card-header">
                             <h4>Input Text</h4>
@@ -73,7 +73,20 @@
                                     is-invalid
                                     @enderror"
                                     name="doctor_email">
-                                @error('email')
+                                @error('doctor_email')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label>Photo</label>
+                                <input type="text"
+                                    class="form-control @error('photo') 
+                                    is-invalid
+                                    @enderror"
+                                    name="photo">
+                                @error('photo')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>

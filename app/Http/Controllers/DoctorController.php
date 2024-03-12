@@ -33,6 +33,7 @@ class DoctorController extends Controller
             'doctor_specialist' => 'required',
             'doctor_phone' => 'required',
             'doctor_email' => 'required',
+            'photo' => 'nullable|url', // Validation rule for URL
             'sip' => 'required',
         ]);
 
@@ -41,9 +42,10 @@ class DoctorController extends Controller
             'doctor_specialist' => $request->doctor_specialist,
             'doctor_phone' => $request->doctor_phone,
             'doctor_email' => $request->doctor_email,
+            'photo' => $request->photo, //  Save validated photo URL in the database
             'sip' => $request->sip,
         ]);
-
+        
         return redirect()->route('doctors.index')->with('success', 'Doctor created successfully.');
     }
 
@@ -69,6 +71,7 @@ class DoctorController extends Controller
             'doctor_specialist' => 'required',
             'doctor_phone' => 'required',
             'doctor_email' => 'required|email',
+            'photo' => 'nullable|url', // Validation rule for URL
             'sip' => 'required',
 
         ]);
@@ -78,6 +81,7 @@ class DoctorController extends Controller
             'doctor_specialist' => $request->doctor_specialist,
             'doctor_phone' => $request->doctor_phone,
             'doctor_email' => $request->doctor_email,
+            'photo' => $request->photo, // Update the photo URL if provided
             'sip' => $request->sip,
         ]);
 
