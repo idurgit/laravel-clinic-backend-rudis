@@ -36,6 +36,15 @@
                         <div class="card-header">
                             <h4>Input Text</h4>
                         </div>
+                        {{-- 'doctor_name',
+                        'doctor_specialist',
+                        'doctor_phone',
+                        'doctor_email',
+                        'photo',
+                        'address',
+                        'sip',
+                        'id_ihs',
+                        'nik' --}}
                         <div class="card-body">
                             <div class="form-group">
                                 <label>Doctor Name</label>
@@ -90,24 +99,40 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label>Photo</label>
-                                <input type="text"
-                                    class="form-control @error('photo') 
+                                <label class="form-label">Photo</label>
+                                <div class="col-sm-9">
+                                    <input type="file"
+                                        class="form-control @error('photo') 
                                     is-invalid
                                     @enderror"
-                                    name="photo" value="{{ old('photo') }}">
+                                        name="photo">
+                                </div>
                                 @error('photo')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
                                 @enderror
-                                @if ($doctor->photo)
-                                    <div>
-                                        <img src="{{ asset($doctor->photo) }}" alt="Doctor Photo"
-                                            style="max-width: 200px; max-height: 200px;">
+                            </div>
+                            @if ($doctor->photo)
+                                <div>
+                                    <img src="{{ asset($doctor->photo) }}" alt="Current Photo">
+                                </div>
+                            @endif
+                        </div>
+                            </div>
+                            {{-- {{ dd($doctor->photo) }} --}}
+                            <div class="form-group">
+                                <label>Address</label>
+                                <input type="text"
+                                    class="form-control @error('address') 
+                                    is-invalid
+                                    @enderror"
+                                    name="address" value="{{ $doctor->address }}">
+                                @error('address')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
                                     </div>
-                                @endif
-
+                                @enderror
                             </div>
                             <div class="form-group">
                                 <label>SIP</label>
@@ -122,6 +147,32 @@
                                     </div>
                                 @enderror
                             </div>
+                            <div class="form-group">
+                                <label>ID IHS</label>
+                                <input type="number"
+                                    class="form-control @error('id_ihs') 
+                                    is-invalid
+                                    @enderror"
+                                    name="id_ihs" value="{{ $doctor->id_ihs }}">
+                                @error('id_ihs')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label>NIK</label>
+                                <input type="number"
+                                    class="form-control @error('nik') 
+                                    is-invalid
+                                    @enderror"
+                                    name="nik" value="{{ $doctor->nik }}">
+                                @error('nik')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
 
 
                         </div>
@@ -130,8 +181,6 @@
                         </div>
                     </form>
                 </div>
-
-
 
             </div>
         </section>

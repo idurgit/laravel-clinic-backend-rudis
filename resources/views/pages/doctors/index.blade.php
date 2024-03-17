@@ -18,7 +18,7 @@
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
                     <div class="breadcrumb-item"><a href="#">Doctor</a></div>
-                    <div class="breadcrumb-item">All Doctors</div>
+                    <div class="breadcrumb-item">All Doctor</div>
                 </div>
             </div>
             <div class="section-body">
@@ -29,7 +29,7 @@
                 </div>
                 <h2 class="section-title">Doctors</h2>
                 <p class="section-lead">
-                    You can manage all doctors, such as editing, deleting and more.
+                    You can manage all Users, such as editing, deleting and more.
                 </p>
 
 
@@ -60,39 +60,37 @@
 
                                             <th>Name</th>
                                             <th>Email</th>
-                                            <th>Photo</th>
                                             <th>Phone</th>
                                             <th>Specialist</th>
-                                            <th>Created At</th>
+                                            <th>Photo</th>
                                             <th>Action</th>
                                         </tr>
                                         @foreach ($doctors as $doctor)
                                             <tr>
 
-                                                <td>
-                                                    {{ $doctor->doctor_name }}
+                                                <td>{{ $doctor->doctor_name }}
                                                 </td>
                                                 <td>
                                                     {{ $doctor->doctor_email }}
                                                 </td>
-                                                <td>
-                                                    @if ($doctor->photo)
-                                                        <img src="{{ asset($doctor->photo) }}" alt="Doctor Photo" style="max-width: 100px; max-height: 100px;">
-                                                    @else
-                                                        No Photo
-                                                    @endif
-                                                </td>
-                                                
                                                 <td>
                                                     {{ $doctor->doctor_phone }}
                                                 </td>
                                                 <td>
                                                     {{ $doctor->doctor_specialist }}
                                                 </td>
-                                                <td>{{ $doctor->created_at }}</td>
+                                                <td>
+                                                    @if ($doctor->photo)
+                                                        <img src="{{ asset('' . $doctor->photo) }}" alt="doctor_photo"
+                                                            width="100px" class="img-thumbnail">
+                                                    @else
+                                                        <span class="badge badge-danger">No Image</span>
+                                                    @endif
+
+                                                </td>
                                                 <td>
                                                     <div class="d-flex justify-content-center">
-                                                        <a href="{{ route('doctors.edit', $doctor->id) }}"
+                                                        <a href='{{ route('doctors.edit', $doctor->id) }}'
                                                             class="btn btn-sm btn-info btn-icon">
                                                             <i class="fas fa-edit"></i>
                                                             Edit

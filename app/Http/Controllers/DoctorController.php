@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\Doctor;
 
 class DoctorController extends Controller
 {
@@ -32,20 +33,49 @@ class DoctorController extends Controller
             'doctor_name' => 'required',
             'doctor_specialist' => 'required',
             'doctor_phone' => 'required',
-            'doctor_email' => 'required',
-            'photo' => 'nullable|url', // Validation rule for URL
+            'doctor_email' => 'required|email',
             'sip' => 'required',
+            'id_ihs' => 'required',
+            'nik' => 'required',
         ]);
 
-        DB::table('doctors')->insert([
-            'doctor_name' => $request->doctor_name,
-            'doctor_specialist' => $request->doctor_specialist,
-            'doctor_phone' => $request->doctor_phone,
-            'doctor_email' => $request->doctor_email,
-            'photo' => $request->photo, //  Save validated photo URL in the database
-            'sip' => $request->sip,
-        ]);
-        
+        // DB::table('doctors')->insert([
+        //     'doctor_name' => $request->doctor_name,
+        //     'doctor_specialist' => $request->doctor_specialist,
+        //     'doctor_phone' => $request->doctor_phone,
+        //     'doctor_email' => $request->doctor_email,
+        //     'sip' => $request->sip,
+        // ]);
+
+        $doctor = new Doctor;
+        $doctor->doctor_name = $request->doctor_name;
+        $doctor->doctor_specialist = $request->doctor_specialist;
+        $doctor->doctor_phone = $request->doctor_phone;
+        $doctor->doctor_email = $request->doctor_email;
+        $doctor->address = $request->address;
+        $doctor->sip = $request->sip;
+        $doctor->id_ihs = $request->id_ihs;
+        $doctor->nik = $request->nik;
+        $doctor->save();
+
+        // if image exist save to public/image
+        // if ($request->file('photo')) {
+        //     $photo = $request->file('photo');
+        //     $photo_name = time() . '.' . $photo->extension();
+        //     $photo->move(public_path('images'), $photo_name);
+        //     DB::table('doctors')
+        //         ->where('id', DB::getPdo()->lastInsertId())
+        //         ->update(['photo' => $photo_name]);
+        // }
+
+        //save image
+        if ($request->hasFile('photo')) {
+            $image = $request->file('photo');
+            $image->storeAs('public/doctors', $doctor->id . '.' . $image->getClientOriginalExtension());
+            $doctor->photo = 'storage/doctors/' . $doctor->id . '.' . $image->getClientOriginalExtension();
+            $doctor->save();
+        }
+
         return redirect()->route('doctors.index')->with('success', 'Doctor created successfully.');
     }
 
@@ -71,19 +101,37 @@ class DoctorController extends Controller
             'doctor_specialist' => 'required',
             'doctor_phone' => 'required',
             'doctor_email' => 'required|email',
-            'photo' => 'nullable|url', // Validation rule for URL
+            'address' => 'nullable',
+            // 'photo' => 'nullable|url', // Validation rule for URL
             'sip' => 'required',
-
         ]);
 
-        DB::table('doctors')->where('id', $id)->update([
-            'doctor_name' => $request->doctor_name,
-            'doctor_specialist' => $request->doctor_specialist,
-            'doctor_phone' => $request->doctor_phone,
-            'doctor_email' => $request->doctor_email,
-            'photo' => $request->photo, // Update the photo URL if provided
-            'sip' => $request->sip,
-        ]);
+        // DB::table('doctors')->where('id', $id)->update([
+        //     'doctor_name' => $request->doctor_name,
+        //     'doctor_specialist' => $request->doctor_specialist,
+        //     'doctor_phone' => $request->doctor_phone,
+        //     'doctor_email' => $request->doctor_email,
+        //     'address' => $request->address,
+        //     // 'photo' => $request->photo, // Update the photo URL if provided
+        //     'sip' => $request->sip,
+        // ]);
+
+        $doctor = Doctor::findOrFail($id);
+        $doctor->doctor_name = $request->doctor_name;
+        $doctor->doctor_specialist = $request->doctor_specialist;
+        $doctor->doctor_phone = $request->doctor_phone;
+        $doctor->doctor_email = $request->doctor_email;
+        $doctor->address = $request->address;
+        $doctor->sip = $request->sip;
+    
+        // Update photo if a new one is provided
+        if ($request->hasFile('photo')) {
+            $image = $request->file('photo');
+            $image->storeAs('public/doctors', $doctor->id . '.' . $image->getClientOriginalExtension());
+            $doctor->photo = 'storage/doctors/' . $doctor->id . '.' . $image->getClientOriginalExtension();
+        }
+    
+        $doctor->save();
 
         return redirect()->route('doctors.index')->with('success', 'Doctor updated successfully.');
     }
