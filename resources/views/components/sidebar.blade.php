@@ -29,6 +29,13 @@
                                 class="fa-solid fa-stethoscope"></i>Doctors</a>
                     </li>
                 </ul>
+
+                <ul class="dropdown-menu">
+                    <li class=''>
+                        <a class="nav-link" href="{{ route('doctor-schedules.index') }}"><i
+                                class="fa-solid fa-stethoscope"></i>Doctor Schedules</a>
+                    </li>
+                </ul>
             </li>
 
     </aside>
